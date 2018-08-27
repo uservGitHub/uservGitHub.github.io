@@ -1,16 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style type="text/css">
-        h1{
-            text-align: center;
-            font-size: 50px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Hello Github</h1>   
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+	<link rel="stylesheet" type="text/css" href="./public/size.css">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>测试程序为什么集成</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="errors" style="
+      background: #c00;
+      color: #fff;
+      display: none;
+      margin: -20px -20px 20px;
+      padding: 20px;
+      white-space: pre-wrap; ">
+    </div>
+
+    <div id="root">
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信号系统设备的测试执行需要仿真程序来模拟与目标系统相关联的设备或单元，这些工具主要分两类，一类是执行系统测试所需的所有外接系统(有接口协议规范)，另一类是执行子系统集成测试所需的工具套件(更多是抓包工具)，这部工具很少，能否抓包受限于实际的连接方式。</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里我们只谈论第一类,它的特点是实现接口协议，模拟相关设备，建立并保持协议交互，通过手动操作执行业务功能，测试目标系统的系统功能。模拟多个设备就会有多个界面(Window窗体)，无论是程序的启动还是界面的切换，给测试员都带来诸多不便。我们想要所有仿真设备的操作都在一个界面中(Window窗体)，即把所有仿真放在一个程序中，但PC机的硬件接口(串口，网口等)及运行资源无法满足要求，因此我们要采用一个操作控制中心(服务端)十N个设备仿真程序(客户端)。</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们定义这种1十N方式叫做执行服务器，重点在于体现业务功能的操作是集中在1个地方(服务端)，只需在一个界面内操作即可。表现形式是先开服务端，如有客户端申请加入，验证并加入后，服务端就会出现该设备的操作区域，如客户端关闭或断开与服务端通信，该客户端在服务端对应的操作区域就会消失，同时服务端也管理了所有客户端的应用配置。即客户端负责摸拟某设备与被测目标进行交互，向服务端传输被测目标的应用数据，并向被测目标发送服务端传来的应用数据，简单等同于服务端与客户端有一个应用层数据的自动透传机制。实际实现时，为了缓减服务端的压力，大批量的数据不会自动向服务端上传，服务端需要那些数据，向客户端要，客户端及时上传，因为底层机制使用的是RPC，因此这个过程是同步的，执行起来就像是在取服务端本机的数据。</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至此，执行服务器的服务端有所有的应用配置数据，控制了所有发往被测系统的应用数据，获取了被测目标的发来的应用数据。自动化测试的基础就有了，把操作员的手动操作保存下来，下次让服务端加载，依次顺序执行就重现了操作员的测试过程。但这种方式，只能自动执行，而无法定制执行过程。要定制执行过程就要先表达执行过程，表达的方式类借鉴CPU指令的执行，如在某寄存器做加法，我们这就是在某设备上做什么业务(对应于应用层的数据)，多条指令就可描述一个完整业务操作。为了通用将指令分解成规则加场景数据，其中规则是固定的，场景是可变的(由现实情况决定)。眼见为实的确认过程转化为在某设备上判断被测目标传来的接口信息应该是什么。</p>
+
+	</div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
 </html>
